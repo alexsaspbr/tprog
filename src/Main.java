@@ -19,7 +19,7 @@ public class Main {
         System.out.println(dataHoraAtual);
 
         //LocalDate dataAniversarioGuilherme = LocalDate.parse("1994-02-16");
-        LocalDate dataAniversarioGuilherme = LocalDate.of(1994, 2, 16);
+      LocalDate dataAniversarioGuilherme = LocalDate.of(1994, 2, 16);
         System.out.println(dataAniversarioGuilherme);
         LocalTime horario = LocalTime.of(19, 30);
 
@@ -37,6 +37,7 @@ public class Main {
         System.out.println("Lisboa " + lisboa);
 
         System.out.println(LocalDateTime.now(ZoneId.of("Europe/Lisbon")));
+        
 
 
     }
