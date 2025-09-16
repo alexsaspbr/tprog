@@ -16,10 +16,10 @@ Escreva um programa que:
 
 ---
 
-### **Exercício 3 – Diferença entre datas (`Period`)**
+### **Exercício 3 – Diferença entre datas (`Exercicio3_Period.Period`)**
 Crie um programa que:
 - Receba duas datas de nascimento diferentes (por exemplo, você pode fixar no código ou pedir ao usuário).
-- Calcule a diferença em **anos, meses e dias** entre as duas datas usando `Period`.
+- Calcule a diferença em **anos, meses e dias** entre as duas datas usando `Exercicio3_Period.Period`.
 - Exiba o resultado de forma clara, como:  
   `"Diferença: X anos, Y meses e Z dias"`.
 
