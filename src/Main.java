@@ -1,177 +1,75 @@
-import ada.tech.exemplo.Animal;
-
-import java.math.BigDecimal;
+import ada.tech.desafiostream.*;
 import java.util.*;
-import java.util.function.Consumer;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Main {
     public static void main(String[] args) {
+        // Criando lista de produtos
+        List<Produto> produtos = Arrays.asList(
+                new Produto("Notebook", 2500.00, "Eletrônicos"),
+                new Produto("Smartphone", 1200.00, "Eletrônicos"),
+                new Produto("Tablet", 800.00, "Eletrônicos"),
+                new Produto("Fone de Ouvido", 300.00, "Eletrônicos"),
+                new Produto("TV 4K", 3500.00, "Eletrônicos"),
+                new Produto("Mouse", 150.00, "Eletrônicos"),
+                new Produto("Camiseta", 50.00, "Vestuário"),
+                new Produto("Tênis", 250.00, "Calçados"),
+                new Produto("Monitor", 900.00, "Eletrônicos"),
+                new Produto("Teclado", 400.00, "Eletrônicos")
+        );
 
-        // lista de animais
-        List<Animal> animais = new ArrayList<>();
-        animais.add(new Animal("peixe", false, true));
-        animais.add(new Animal("peixe", false, true));
-        animais.add(new Animal("canguru", true, false));
-        animais.add(new Animal("coelho", true, false));
-        animais.add(new Animal("tartaruga", false, true));
+        // Pipeline composto
+        List<String> resultado = produtos.stream()
+                // 1. Filtrar apenas produtos da categoria "Eletrônicos" com preço acima de 500
+                .filter(p -> "Eletrônicos".equals(p.getCategoria()) && p.getPreco() > 500)
+                // 2. Ordenar os produtos pelo preço em ordem decrescente
+                .sorted((p1, p2) -> Double.compare(p2.getPreco(), p1.getPreco()))
+                // 3. Agrupar os produtos por categoria
+                .collect(Collectors.groupingBy(Produto::getCategoria))
+                // 4. Dentro da categoria "Eletrônicos", extrair apenas os nomes dos produtos mais caros (top 2)
+                .getOrDefault("Eletrônicos", new ArrayList<>())
+                .stream()
+                .limit(2) // Pegar apenas os 2 primeiros (mais caros)
+                .map(Produto::getNome) // Extrair apenas os nomes
+                .collect(Collectors.toList());
 
-        //normal
-        animais.stream();
-        //parelela
-        animais.parallelStream();
+        // Exibir o resultado final
+        System.out.println("Top 2 produtos mais caros da categoria Eletrônicos (preço > 500):");
+        resultado.forEach(System.out::println);
 
-        //Stream de array
-        //int [] nums = new int[1,2,3];
-        //Arrays.stream(nums);
+        // Versão alternativa mostrando todo o processo passo a passo:
+        System.out.println("\n--- Processo Detalhado ---");
 
-        //INTERMEDIARIAS
+        // Passo 1: Filtrar
+        List<Produto> filtrados = produtos.stream()
+                .filter(p -> "Eletrônicos".equals(p.getCategoria()) && p.getPreco() > 500)
+                .collect(Collectors.toList());
+        System.out.println("1. Produtos Eletrônicos com preço > 500:");
+        filtrados.forEach(System.out::println);
 
-        //map - transformacao
-        /* animais.stream()
-                            .map(animal -> {
-                                animal.setEspecie(animal.getEspecie().toUpperCase());
-                                return animal;
-                            })
-                            .forEach(System.out::println);*/
+        // Passo 2: Ordenar
+        List<Produto> ordenados = filtrados.stream()
+                .sorted((p1, p2) -> Double.compare(p2.getPreco(), p1.getPreco()))
+                .collect(Collectors.toList());
+        System.out.println("\n2. Produtos ordenados por preço (decrescente):");
+        ordenados.forEach(System.out::println);
 
-        //filter
-        /*animais.stream()
-                .filter(animal -> animal.getEspecie().startsWith("c"))
-                .forEach(System.out::println);
+        // Passo 3: Agrupar
+        Map<String, List<Produto>> agrupados = ordenados.stream()
+                .collect(Collectors.groupingBy(Produto::getCategoria));
+        System.out.println("\n3. Produtos agrupados por categoria:");
+        agrupados.forEach((categoria, lista) -> {
+            System.out.println("Categoria: " + categoria);
+            lista.forEach(p -> System.out.println("  - " + p.getNome() + ": R$ " + p.getPreco()));
+        });
 
-        Predicate<Animal> isNadador = Animal::podeNadar;
-        Consumer<Animal> consumer = (animal) -> System.out.println(animal.toString().toUpperCase());
-
-        animais.stream()
-                .filter(isNadador)
-                .forEach(consumer);
-*/
-        //skip - pular itens
-        /*animais.stream()
-                .skip(2)
-                .forEach(System.out::println);
-*/
-        //limit - quantidade a retornar
-        /*animais.stream()
-                .skip(2)
-                .limit(3)
-                .forEach(System.out::println);*/
-
-        //distinct
-/*
-        animais.stream()
-                .distinct()
-                .forEach(System.out::println);
-*/
-
-        //sorted
-
-        /*Comparator<Animal> comp = Comparator.comparing(Animal::getEspecie);
-        animais.stream()
-                .sorted(comp)
-                .forEach(System.out::println);*/
-
-        //peek
-       /* long count = animais.stream()
-                .filter(Animal::podeSaltar)
-                .peek(System.out::println)
-                .count();
-        System.out.println(count);
-*/
-        //flatMap
-
-        /*List<Animal> animais2 = new ArrayList<>();
-        animais2.add(new Animal("tubarao", false, true));
-        Animal baleia = new Animal(" baleia", false, true);
-
-
-        Stream<List<Animal>> listasDeAnimais = Stream.of(animais, animais2, List.of(baleia));
-        listasDeAnimais.flatMap(Collection::stream)
-                .forEach(System.out::println);
-*/
-
-        //TERMINAIS
-
-        //forEach
-        //animais.stream().forEach(System.out::println);
-
-        //count
-        //System.out.printf("total de itens %d", animais.stream().count());
-
-        //collect
-        //Set<Animal> setAnimais = animais.stream().collect(Collectors.toSet());
-
-//        Map<Boolean, List<Animal>> animaisSaltadores = animais.stream()
-//                .collect(Collectors.groupingBy(Animal::podeSaltar));
-//
-//        animaisSaltadores.get(true).stream().forEach(System.out::println);
-
-        //min e max
-       /* Comparator<Animal> comp = Comparator.comparing(Animal::getEspecie);
-        System.out.printf("\nMinimo %s", animais.stream().min(comp).get().getEspecie());
-        System.out.printf("\nMaximo %s", animais.stream().max(comp).get().getEspecie());*/
-
-        //reduce
-        /*BigDecimal preco1 = new BigDecimal(5000.0);
-        BigDecimal preco2 = new BigDecimal(400.0);
-        List<BigDecimal> precos = List.of(preco1, preco2);
-        BigDecimal totalPrecos = precos.stream().reduce(BigDecimal.ZERO, BigDecimal::add);
-        System.out.printf("\nTotal de precos %s",
-                totalPrecos);*/
-
-        //findFirst e FindAny
-     /*   animais.stream()
-                .filter(Animal::podeSaltar)
-                .findFirst().ifPresent(System.out::println);*/
-
-        //FindAny
-     /*   animais.parallelStream()
-                //.filter(Animal::podeSaltar)
-                .findAny().ifPresent(System.out::println);*/
-
-        //allMatch
-       /* System.out.printf("\nTodos animais podem saltar %b",
-                animais.stream().allMatch(Animal::podeSaltar));*/
-
-        //anyMatch
-       /* System.out.printf("\nAlgum animal pode saltar %b",
-                animais.stream().anyMatch(Animal::podeSaltar));*/
-
-        //noneMatch
-//        System.out.printf("\nNenhum animal pode saltar %b",
-//                animais.stream().noneMatch(Animal::podeSaltar));
-
-
-     /*   animais.parallelStream().forEach(animal -> {
-            System.out.printf("\nNome da Thread %s - ", Thread.currentThread().getName());
-            System.out.print(animal.getEspecie());
-        });*/
-
-        List<Thread> threads = new ArrayList<>();
-        for(Animal animal : animais) {
-            Thread thread = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    System.out.printf("\nNome da Thread %s - ", Thread.currentThread().getName());
-                    System.out.print(animal.getEspecie());
-                }
-            });
-            threads.add(thread);
-        }
-
-        for (Thread t : threads) {
-            t.start();
-            try {
-                t.join(100L);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        }
-
-
+        // Passo 4: Extrair top 2 nomes
+        List<String> top2Nomes = agrupados.getOrDefault("Eletrônicos", new ArrayList<>())
+                .stream()
+                .limit(2)
+                .map(Produto::getNome)
+                .collect(Collectors.toList());
+        System.out.println("\n4. Top 2 produtos mais caros (apenas nomes):");
+        top2Nomes.forEach(System.out::println);
     }
-
 }
