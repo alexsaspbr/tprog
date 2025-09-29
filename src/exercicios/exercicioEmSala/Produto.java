@@ -1,4 +1,4 @@
-package exercicio;
+package exercicios.exercicioEmSala;
 
 import java.math.BigDecimal;
 
