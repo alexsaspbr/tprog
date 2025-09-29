@@ -1,4 +1,4 @@
-package desafio;
+package exercicio;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

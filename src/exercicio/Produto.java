@@ -1,9 +1,6 @@
-package desafio;
+package exercicio;
 
 import java.math.BigDecimal;
-import java.util.List;
-import java.util.SequencedCollection;
-import java.util.stream.Collectors;
 
 public class Produto {
     private String sku;
