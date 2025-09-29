@@ -11,7 +11,7 @@ public class Main {
     public static void main(String[] args) {
         List<Produto> produtos = new ArrayList<>();
         for (int i = 1; i <= 10; i++) {
-            produtos.add(new Produto("SKU" + "Produto " + i, BigDecimal.valueOf(i * 10.0)));
+            //produtos.add(new Produto("SKU" + "Produto " + i, BigDecimal.valueOf(i * 10.0)));
         }
 
         System.out.println();
