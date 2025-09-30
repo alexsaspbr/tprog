@@ -1,43 +1,25 @@
-# 📝 Lista de Exercícios: Java Time API
+Exercícios de Stream em Java - Entregar 29/09/2025
 
-### **Exercício 1 – Trabalhando com `LocalDate`**
-Crie um programa que:
-- Obtenha a data atual do sistema.
-- Mostre o dia, mês e ano separadamente.
-- Adicione **10 dias** à data atual e exiba o resultado.
+Esta lista contém 5 exercícios progressivos sobre o uso de Streams em Java. O objetivo é praticar operações intermediárias e terminais, até chegar em um desafio mais complexo utilizando pipelines compostos.
+Exercício 1 - Filtragem Simples
 
----
+Dada uma lista de números inteiros, use Stream para filtrar apenas os números pares e imprimir cada um deles.
+Exercício 2 - Mapeamento
 
-### **Exercício 2 – Usando `LocalTime`**
-Escreva um programa que:
-- Mostre a hora atual do sistema.
-- Adicione **2 horas e 30 minutos** ao horário atual.
-- Exiba a hora antes e depois da adição.
+Dada uma lista de nomes, converta todos os nomes para letras maiúsculas utilizando Stream e exiba o resultado.
+Exercício 3 - Ordenação e Limite
 
----
+Dada uma lista de números decimais, ordene-os em ordem crescente, limite o resultado aos 3 primeiros e exiba-os.
+Exercício 4 - Redução
 
-### **Exercício 3 – Diferença entre datas (`Period`)**
-Crie um programa que:
-- Receba duas datas de nascimento diferentes (por exemplo, você pode fixar no código ou pedir ao usuário).
-- Calcule a diferença em **anos, meses e dias** entre as duas datas usando `Period`.
-- Exiba o resultado de forma clara, como:  
-  `"Diferença: X anos, Y meses e Z dias"`.
+Dada uma lista de números inteiros, utilize Stream para calcular a soma de todos os elementos.
+Exercício 5 - Desafio Avançado (Pipeline Composto)
 
----
+Dada uma lista de produtos (classe Produto com atributos nome, preco e categoria):
 
-### **Exercício 4 – Medindo tempo com `Duration`**
-Escreva um programa que:
-- Capture a hora atual (`LocalTime.now()`).
-- Espere o usuário pressionar **ENTER** para continuar.
-- Capture novamente a hora e calcule o tempo decorrido em **segundos e nanos** usando `Duration`.
+    Filtrar apenas os produtos da categoria "Eletrônicos" com preço acima de 500.
+    Ordenar os produtos pelo preço em ordem decrescente.
+    Agrupar os produtos por categoria em um Map<String, List<Produto>>.
+    Dentro da categoria "Eletrônicos", extrair apenas os nomes dos produtos mais caros (top 2).
+    Exibir o resultado final.
 
----
-
-### **Exercício 5 – 🚀 Desafio Final: Agendamento com `ZonedDateTime`**
-Implemente um programa de agendamento internacional que:
-1. Crie um evento para **15 de outubro de 2025 às 14:00** no fuso horário de **São Paulo (America/Sao_Paulo)**.
-2. Converta esse horário para os fusos:
-    - Nova Iorque (America/New_York)
-    - Tóquio (Asia/Tokyo)
-    - Londres (Europe/London)
-3. Exiba os horários equivalentes nesses fusos de forma clara.  
