@@ -7,4 +7,12 @@ public class Veiculo {
         this.placa = placa;
         this.marca = marca;
     }
+
+    public String getMarca() {
+        return marca;
+    }
+
+    public String getPlaca() {
+        return placa;
+    }
 }

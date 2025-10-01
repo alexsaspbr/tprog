@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.util.Optional;
 import java.util.function.*;
 
 public class Main {
@@ -39,9 +40,25 @@ public class Main {
         System.out.println(unaryOperator.apply("Atencao"));
 
         //binaryOperator
-         BinaryOperator<String> binaryOperator = (String nome, String sobreNome) -> nome.concat(" ").concat(sobreNome);
-         System.out.println(binaryOperator.apply("Guilherme", "Ariel"));
+        BinaryOperator<String> binaryOperator = (String nome, String sobreNome) -> nome.concat(" ").concat(sobreNome);
+        System.out.println(binaryOperator.apply("Guilherme", "Ariel"));
 
+        //Optional
+        Optional<Object> empty = Optional.empty();//optinal vazio
+        Optional<Veiculo> opVeiculo = Optional.of(new Veiculo(null, null));
+
+        opVeiculo.ifPresent(veiculo -> System.out.println(veiculo));
+
+        Veiculo veiculo = opVeiculo.orElse(new Veiculo(null, null));
+        Optional.ofNullable(veiculo).map(Veiculo::getPlaca);
+
+        if(veiculo != null) {
+
+        }
+
+        if (opVeiculo.isPresent()) {
+            opVeiculo.get();
+        }
 
     }
 }
