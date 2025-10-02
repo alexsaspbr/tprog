@@ -1,64 +1,21 @@
-import java.time.LocalDate;
-import java.util.Optional;
-import java.util.function.*;
-
 public class Main {
     public static void main(String[] args) {
 
-        //functional interfaces
-
-        //supplier
-        Supplier<LocalDate> sv = () -> LocalDate.now();
-        System.out.println(sv.get());
-
-        //predicate
-        Predicate<Integer> isNegative = (Integer a) -> a < 0;
-        System.out.println(isNegative.test(-1));
-
-        //bi-predicate
-        BiPredicate<Integer, Integer> bi_predicate = (Integer a, Integer b) -> a < 0 && b < 0;
-        System.out.println(bi_predicate.test(-1, 9));
-
-        //consumer
-        Consumer<String> consumer = (String texto) -> System.out.println(texto);
-        consumer.accept("Alex Araujo");
-
-        //bi-consumer
-        BiConsumer<String, String> bi_consumer = (String nome, String sobreNome) -> System.out.printf("\n%s %s\n", nome, sobreNome);
-        bi_consumer.accept("Joao", "Carlos");
-
-        //function
-        Function<String, Integer> function = (String texto) -> texto.length();
-        System.out.println(function.apply("Ola mundo!"));
-
-        //bi-function
-        BiFunction<String, String, Integer> bi_function = (String texto, String texto2) -> texto.length() + texto2.length();
-        System.out.println(bi_function.apply("Ola", "Mundo!"));
-
-        //unaryOperator
-        UnaryOperator<String> unaryOperator = (String nome) -> nome.concat("!");
-        System.out.println(unaryOperator.apply("Atencao"));
-
-        //binaryOperator
-        BinaryOperator<String> binaryOperator = (String nome, String sobreNome) -> nome.concat(" ").concat(sobreNome);
-        System.out.println(binaryOperator.apply("Guilherme", "Ariel"));
-
-        //Optional
-        Optional<Object> empty = Optional.empty();//optinal vazio
-        Optional<Veiculo> opVeiculo = Optional.of(new Veiculo(null, null));
-
-        opVeiculo.ifPresent(veiculo -> System.out.println(veiculo));
-
-        Veiculo veiculo = opVeiculo.orElse(new Veiculo(null, null));
-        Optional.ofNullable(veiculo).map(Veiculo::getPlaca);
-
-        if(veiculo != null) {
-
+        //Threads
+        Thread thread = new Thread(() -> System.out.printf("[thread %s] Ola\n", Thread.currentThread().getName()));
+        try {
+            Thread.sleep(1000L);
+        } catch (InterruptedException e) {
+            System.out.println(Thread.currentThread().getState());
+            throw new RuntimeException(e);
         }
+        Thread thread2 = new Thread(() -> System.out.printf("[thread %s] Turma 1418\n", Thread.currentThread().getName()));
 
-        if (opVeiculo.isPresent()) {
-            opVeiculo.get();
-        }
+        thread2.start();
+        thread.start();
+        //thread2.join();
+        //thread.join();
+        System.out.printf("[thread %s] Mundo\n", Thread.currentThread().getName());
 
     }
 }
